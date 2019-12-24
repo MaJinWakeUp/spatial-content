@@ -1,4 +1,4 @@
-# spatial-content
+# spatial-content (Revising)
 This is a Matlab implementation of our paper: 
 
 **Spatial-Content Image Search in Complex Scenes.**
