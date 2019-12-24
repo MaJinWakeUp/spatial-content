@@ -7,7 +7,7 @@ This is a Matlab implementation of our paper:
 ***
 
 ## Setup
-* [Library yael][1]: Most functions are already contained in folder `utils`. Other functions needed could be found in this library.
+* [Library yael][1]: Most functions are already contained in folder `/utils`. Other functions needed could be found in this library.
 
 ## Step by step
 1. Detect boxes using [YOLOv3][2] (not include). 
