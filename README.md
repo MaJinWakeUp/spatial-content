@@ -15,7 +15,11 @@ This is a Matlab implementation of our paper:
 3. Build image representation using `preprocess_data.m`.
 4. Image search with our spatial-content similarity `test_spacon.m`.
 
+## Meaning of other codes
+* extract_text.m
+* gnd_\*.m
+* create_PCA.m
+* create_gnd.m
 
 [1]: https://gforge.inria.fr/projects/yael/ "yael home"
 [2]: https://pjreddie.com/darknet/yolo/ "YOLO"
-
