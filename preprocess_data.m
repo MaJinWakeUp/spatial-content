@@ -1,13 +1,14 @@
-% preprocess data
+% generate image representation 
 clear;
 close all;
-dataset='coco2017';
+dataset='coco2017'; % three datasets: 'val2017', 'coco2017' and 'vg'
 addpath('../yael/matlab')
 
 load(strcat('./data/list_',dataset));
 
+%% calculate and save every image's representation 
 if strcmp(dataset,'vg')
-    dir_box = strcat('./data/yolo_boxes/vg_box/');
+    dir_box = strcat('./data/yolo_boxes/vg_box/'); % path/to/
     dir_feature = strcat('./data/googlenet_vg/');
     dir_output = strcat('./data/processed/vg/');
 else   
@@ -15,15 +16,6 @@ else
     dir_feature = strcat('./data/googlenet_coco2017/');
     dir_output = strcat('./data/processed/coco2017/');
 end
-
-% % pca part1
-% switch dataset
-%     case {'val2017','coco2017'}
-%         load('coco_PCA.mat')
-%     case 'vg'
-%         load('vg_PCA.mat')
-% end
-% dim=1024;
 
 num_im = numel(list);
 tic
@@ -40,33 +32,34 @@ for i=1:num_im
     num_boxes = numel(labels);
     if num_boxes>0
         for j=1:num_boxes
+            % each object's bounding box
             data_(j).box = bboxes(j,:);
+            % each object's label
             data_(j).label = labels(j);
         
+            % each object's feature = 
+            %        sum pooling of all features contained in bounding box
             cur_index = trans_ind(bboxes(j,:));
-%             cur_feature = data(:,cur_index);
             cur_feature = yael_vecs_normalize(data(:,cur_index),2,0);
             cur_feature = sum(cur_feature,2);
             cur_feature = postprocess(cur_feature);
-%             % pca part2
-%             cur_feature = apply_whiten (cur_feature, pca_data.Xm, pca_data.eigvec, pca_data.eigval, dim);
-%             cur_feature = yael_vecs_normalize(cur_feature,2,0);
             data_(j).feature = cur_feature;
             
         end
     else
         data_(1).box=[];
         data_(1).label=0;
-%         cur_feature = data;
         cur_feature = yael_vecs_normalize(data,2,0);
         cur_feature= sum(cur_feature,2);
         data_(1).feature= postprocess(cur_feature);
-    end        
-
+    end   
+    
+    % save image representation of every image
     save(strcat(dir_output,list{i}),'data_');
     clear data_;
 end
 
+%% here we combine all images' representation into one file, make it easier for reading data 
 if strcmp(dataset,'vg')
     dir_everyone = strcat('./data/processed/vg/');
 else   

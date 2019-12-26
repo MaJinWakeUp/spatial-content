@@ -1,3 +1,7 @@
+%%% Modify the original boxes detected by yolov3, each saved file contains 
+%%% all detected objects' bounding boxes and labels in one image.
+
+%==================create coco_names.mat====================
 % fid = fopen('./data/myexper/coco.names','r');
 % i=1;
 % while feof(fid)==0
@@ -21,6 +25,7 @@ for id = 1:num_im
     end
     load(strcat(dir_box,list{id},'.mat'));
     bboxes = boxes;
+    % boxes coordinates should be relative coordinates, range from 0-1
     bboxes(bboxes<0)=0;
     bboxes(bboxes>1)=1;
     clear boxes;
@@ -31,6 +36,7 @@ for id = 1:num_im
     else
         labels = zeros(num_boxes,1);
     
+        
         fid = fopen(strcat(dir_box,list{id},'.txt'),'r');
         i=1;
         while feof(fid)==0
