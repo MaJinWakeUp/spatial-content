@@ -21,13 +21,7 @@ while line:
     line = file.readline();
     
 file.close();
-    
-#corpus = [
-#        'This is the first document.',
-#        'I am using this toolkit for the first time.',
-#        'See what is happening.',
-#        'Haha, let us go.',
-#        ];
+
 vectorizer = CountVectorizer(min_df=0.0001,max_df=0.9,stop_words='english',analyzer='word');#min_df,max_df
 transformer = TfidfTransformer();
 X = transformer.fit_transform(vectorizer.fit_transform(corpus));
@@ -35,8 +29,6 @@ word = vectorizer.get_feature_names();
 data_mat = X.toarray()
 
 num_im = data_mat.shape[0];
-#qidx = range(num_im);
-#qidx = np.random.randint(num_im,size=500);
 
 query=sio.loadmat('../data/qidx_'+dataset+'.mat');
 qidx=query['qidx'].flatten();
@@ -61,11 +53,3 @@ simscore = np.dot(q_mat,data_mat.T);
 
 #sio.savemat('../data/qidx_'+dataset+'.mat',{"qidx":qidx+1});
 sio.savemat('../data/simscore_'+dataset+'.mat',{"simscore":simscore});
-
-"""
-#print word
-f = codecs.open('words_train2017.txt','w','utf-8');
-for i in range(len(word)):
-    f.write(word[i]+'\n')
-f.close()
-"""
