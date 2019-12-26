@@ -3,8 +3,7 @@ This is a Matlab implementation for our paper:
 
 **Spatial-Content Image Search in Complex Scenes.**
 
-***Note**: Sorry that this repository may not contain every single step of our algorithm, some codes are lost due to my graduation from university. However, core function codes are still here.*
-***
+> ***Note**: Sorry that this repository may not contain every single step of our algorithm, some codes are lost due to my graduation from university. However, core function codes are still here.*
 
 ## Setup
 * [Library yael][1]: Most functions are already contained in folder `/utils`. Other functions needed could be found in this library.
